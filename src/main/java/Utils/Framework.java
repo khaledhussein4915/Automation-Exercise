@@ -246,21 +246,36 @@ public class Framework {
         String randomEmail = faker.internet().emailAddress();
         return  randomEmail;
     }
-    public void  killAds() {
-        try {
-            org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) browser;
-            String script =" const elements = document.getElementsByClassName('adsbygoogle');"+
+//    public void  killAds() {
+//        try {
+//            org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) browser;
+//            String script =" const elements = document.getElementsByClassName('adsbygoogle');"+
+//
+//                    "for (let el of elements) {"+
+//                    " el.style.display = '';"+
+//                    "await new Promise((resolve, reject)=>{ setTimeout(()=>resolve(),5000)}); console.log('ad removed')"+
+//                    "el.style.display = 'none';"+
+//                    "}";
+//
+//            js.executeScript(script);
+//        } catch (Exception e) {
+//            System.out.println("Could not remove ads: " + e.getMessage());
+//        }
+public void killAds() {
+    try {
+        org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) browser;
+        // الكود هنا بيمسح الإعلانات والـ overlays اللي بتغطي الشاشة
+        String script =
+                "var ads = document.getElementsByClassName('adsbygoogle');" +
+                        "for (var i = 0; i < ads.length; i++) { ads[i].remove(); }" + // قفلنا القوس هنا
+                        "var overlays = document.getElementsByClassName('grippy-host');" +
+                        "for (var j = 0; j < overlays.length; j++) { overlays[j].remove(); }";
 
-                    "for (let el of elements) {"+
-                    " el.style.display = '';"+
-                    "await new Promise((resolve, reject)=>{ setTimeout(()=>resolve(),5000)}); console.log('ad removed')"+
-                    "el.style.display = 'none';"+
-                    "}";
+        js.executeScript(script);
+    } catch (Exception e) {
+        System.out.println("Could not remove ads: " + e.getMessage());
+    }
 
-            js.executeScript(script);
-        } catch (Exception e) {
-            System.out.println("Could not remove ads: " + e.getMessage());
-        }
 
 
 

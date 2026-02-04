@@ -55,6 +55,7 @@ public Register_Page (WebDriver browser ) {
  private final By clickContinueButton_Locator = By.cssSelector("[data-qa=\"continue-button\"]");
  private final By deleteAccountButton_Locator = By.linkText("Delete Account");
  private final By deletedAccountSuccessMessage_Locator = By.cssSelector("[data-qa=\"account-deleted\"] > b");
+ private final By existingEmailRegister_Locator = By.cssSelector("p[style=\"color: red;\"]");
 
 
 
@@ -75,6 +76,10 @@ public Register_Page (WebDriver browser ) {
   fr.sendKeys(NewUserEmailLocator, userEmail);
   String generatedUserEmail =  userEmail;
   System.out.println("generatedUserEmail: " + generatedUserEmail);
+ }
+
+ public void enterUserEmailNormal(String email ) {
+  fr.sendKeys(NewUserEmailLocator, email);
  }
  public String getEmailUsed() {
   return browser.findElement(NewUserEmailLocator).getAttribute("value");
@@ -223,6 +228,27 @@ public  void add_password (String password) {
     System.out.println(fr.getText(deletedAccountSuccessMessage_Locator));
 
   }
+/*
+Test Case 5: Register User with existing email
+1. Launch browser
+2. Navigate to url 'http://automationexercise.com'
+3. Verify that home page is visible successfully
+4. Click on 'Signup / Login' button
+5. Verify 'New User Signup!' is visible
+6. Enter name and already registered email address
+7. Click 'Signup' button
+8. Verify error 'Email Address already exist!' is visible
+ */
 
+ public void registerExistingEmail(String userName , String userEmail){
+  enterDesiredUserName(userName);
+  enterUserEmailNormal(userEmail);
+  clickSignupButton ();
+
+
+ }
+ public String getExistingEmailMessage (){
+  return fr.getText(existingEmailRegister_Locator);
+ }
 }
 

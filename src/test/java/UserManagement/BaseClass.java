@@ -2,6 +2,7 @@ package UserManagement;
 
 import Pages_Automation_Excersize.Home_Page;
 import Pages_Automation_Excersize.Login_Page;
+import Pages_Automation_Excersize.Register_Page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
@@ -15,6 +16,7 @@ public class BaseClass {
     protected Home_Page homePage;
     protected Login_Page loginPage;
     SoftAssert softTest;
+    Register_Page registerPage ;
 
     @BeforeMethod
     public void setupBeforeMethods()
@@ -24,10 +26,13 @@ public class BaseClass {
         softTest = new SoftAssert();
         homePage = new Home_Page(browser);
         loginPage = new Login_Page(browser);
+        registerPage = new Register_Page(browser);
+        homePage.killads();
     }
     @AfterMethod
     public void tearDownAfterMethod()
     {
+        homePage.killads();
         browser.quit();
     }
 }

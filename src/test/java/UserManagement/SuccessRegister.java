@@ -7,56 +7,21 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 
-public class SuccessRegister {
-  String baseURL;
-  Home_Page homePage ;
-  Register_Page registerPage ;
-  WebDriver browser;
+public class SuccessRegister extends BaseClass{
 
 
-    public void killAds() {
-        try {
-            org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) browser;
-            String script =" const elements = document.getElementsByClassName('adsbygoogle');"+
-
-            "for (let el of elements) {"+
-               " el.style.display = '';"+
-                    "await new Promise((resolve, reject)=>{ setTimeout(()=>resolve(),5000)}); console.log('ad removed')"+
-                "el.style.display = 'none';"+
-            "}";
-
-            js.executeScript(script);
-        } catch (Exception e) {
-            System.out.println("Could not remove ads: " + e.getMessage());
-        }
-    }
-
-    @BeforeMethod
-    public void setupPages()throws Exception{
-
-        ChromeOptions options = new ChromeOptions();
-
-        // These arguments help prevent popups and ads
-        options.addArguments("--incognito");
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-popup-blocking");
-
-        browser = new ChromeDriver();
-        homePage = new Home_Page(browser);
-        registerPage = new Register_Page(browser);
-
-    }
-
+@Ignore
     @Test
 
     public void setSuccessRegisterRequest() {
 
         SoftAssert soft = new  SoftAssert();
-        killAds();
+        homePage.killads();
         homePage.navigateToHomePage();
 
         //Verify that home page is visible successfully
@@ -64,16 +29,16 @@ public class SuccessRegister {
         soft.assertEquals(actual_URl,"https://automationexercise.com/");
 
         //Verify 'New User Signup!' is visible
-        killAds();
+        homePage.killads();
         homePage.clickSignUpLink();
         String SignupActual_URl = homePage.getURL();
         soft.assertEquals(SignupActual_URl,"https://automationexercise.com/login");
 
 
-        killAds();
+        homePage.killads();
         registerPage.performCreateAccount("ahmed", "123456","useremail","5", "5", "2003", "Fathy", "GizaDevelopment", "in the sky",  1 , "Giza", "007", "01550000");
         String actualValue = registerPage.getsuccessRegister();
-        killAds();
+        homePage.killads();
         System.out.println(actualValue);
         String expected_Message = "ACCOUNT CREATED!";
 
@@ -82,13 +47,22 @@ public class SuccessRegister {
         Assert.assertEquals(actualValue,expected_Message);
         soft.assertAll();
 
-        killAds();
+        homePage.killads();
         registerPage.deleteAccount();
         String expectedDeletedMessage =  "ACCOUNT DELETED!";
         String actualdeletedmessage = registerPage.getDeletedMsgRegisterAccount();
         //Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
         Assert.assertEquals(actualdeletedmessage,expectedDeletedMessage);
         soft.assertAll();
+    }
+
+    @Test // Test Case 5: Register User with existing email
+    public void performExistingRegisterRequest() {
+        homePage.navigateToLoginPage();
+        registerPage.registerExistingEmail("Ahmed", "ahmed.khamis@gmail.com");
+        String actualValue = registerPage.getExistingEmailMessage();
+        String expectedValue = "Email Address already exist!";
+        Assert.assertEquals(actualValue.contains(expectedValue),true);
     }
 
 

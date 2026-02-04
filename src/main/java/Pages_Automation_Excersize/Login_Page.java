@@ -11,14 +11,14 @@ public class Login_Page {
     private Framework fr;
 
 
-
+//--------------------------------------------------------------------------------------------------//
     // Constructor
     public Login_Page (WebDriver browser) {
         fr = new Framework(browser);
          }
 
 
-
+//--------------------------------------------------------------------------------------------------//
     //Locators
 
 
@@ -30,9 +30,8 @@ public class Login_Page {
     private final By deletedAccountSuccessMessage_Locator = By.cssSelector("[data-qa=\"account-deleted\"] > b");
     private final By wrongCredentialMessage_Locator = By.cssSelector("p[style=\"color: red;\"]");
     private final By logoutButton_Locator = By.linkText("Logout");
-
+//--------------------------------------------------------------------------------------------------//
     // Functions
-
 
     public void enterUserEmail(String userEmail) {
         fr.sendKeys(exitanceUserEmail_Locator, userEmail);
@@ -81,6 +80,9 @@ public class Login_Page {
         fr.clickonElement(logoutButton_Locator);
     }
 
+    public String getPageURL() {
+        return fr.getpageURL();
+    }
 
 
 }
