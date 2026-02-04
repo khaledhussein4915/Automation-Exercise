@@ -29,6 +29,7 @@ public class Login_Page {
     private final By deleteAccountButton_Locator = By.linkText("Delete Account");
     private final By deletedAccountSuccessMessage_Locator = By.cssSelector("[data-qa=\"account-deleted\"] > b");
     private final By wrongCredentialMessage_Locator = By.cssSelector("p[style=\"color: red;\"]");
+    private final By logoutButton_Locator = By.linkText("Logout");
 
     // Functions
 
@@ -75,6 +76,9 @@ public class Login_Page {
     public void killads()
     {
         fr.killAds();
+    }
+    public void logout(){
+        fr.clickonElement(logoutButton_Locator);
     }
 
 

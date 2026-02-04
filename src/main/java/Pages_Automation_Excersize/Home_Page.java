@@ -4,7 +4,7 @@ import Utils.Constants;
 import Utils.Framework;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 
 public class Home_Page {
 Framework fr ;
@@ -15,15 +15,15 @@ WebDriver browser;
     private final By signUpLink_Locator = By.linkText("Signup / Login");
 
 //Constructor
-public Home_Page (WebDriver browser, String URL)
+public Home_Page (WebDriver browser)
 {
-    fr = new Framework(browser);
-    this.URL=URL;
+    this.fr = new Framework(browser);
+    this.browser = browser;
 
 }
 //Functional
-public void navigateToHomePage ( WebDriver browser, String URL){
-    this.URL=URL;
+public void navigateToHomePage ( ){
+
     fr.navigatesToURL(Constants.APP_URL);
 
 }
@@ -35,11 +35,16 @@ public void  clickSignUpLink()
 
 public  void navigateToLoginPage()
 {
-    navigateToHomePage(browser,URL);
+    navigateToHomePage();
     clickSignUpLink();
 }
 
-    public String getURL() {
+public String getURL() {
         return fr.getpageURL();
+    }
+
+public void killads()
+    {
+        fr.killAds();
     }
 }

@@ -1,33 +1,12 @@
-package RegisterNewUser;
+package UserManagement;
 
-import Pages_Automation_Excersize.Home_Page;
-import Pages_Automation_Excersize.Login_Page;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
-public class SuccessLogin {
-    Home_Page homePage;
-    Login_Page loginPage;
-    String baseURL;
-    WebDriver browser;
-    SoftAssert soft ;
+public class SuccessLogin extends BaseClass{
 
 
 
-    @BeforeMethod
-    public void initialise()
-    {
-        browser = new ChromeDriver();
-        homePage = new Home_Page(browser,baseURL);
-        loginPage = new Login_Page(browser);
-        soft= new SoftAssert();
-
-        }
 
 
     @Test // Test Case 2: Login User with correct email and password
@@ -35,9 +14,10 @@ public class SuccessLogin {
     {
         homePage.navigateToLoginPage();
         String actual_URl = homePage.getURL();
-        soft.assertEquals(actual_URl,"https://automationexercise.com/");
 
-        loginPage.performLogin("priscila.heller@yahoo.com","123456");
+        softTest.assertEquals(actual_URl,"https://automationexercise.com/");
+
+        loginPage.performLogin("rusty.runte@yahoo.com","123456");
 
         String actualSuccessLoginMessage = loginPage.getSuccessLoginMessage( );
         System.out.println(actualSuccessLoginMessage);
@@ -52,7 +32,7 @@ public class SuccessLogin {
         loginPage.killads();
         //Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
         Assert.assertEquals(actualdeletedmessage,expectedDeletedMessage);
-        soft.assertAll();
+        softTest.assertAll();
 
 
     }

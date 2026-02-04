@@ -2,8 +2,8 @@
 <suite name="Full Flow Suite">
     <test name="Registration and Login">
         <classes>
-            <class name="RegisterNewUser.SuccessRegister" />
-            <class name="RegisterNewUser.SuccessLogin" />
+            <class name="UserManagement.SuccessRegister" />
+            <class name="UserManagement.SuccessLogin" />
         </classes>
     </test>
 </suite>

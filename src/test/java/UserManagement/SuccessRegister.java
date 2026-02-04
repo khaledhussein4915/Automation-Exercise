@@ -1,4 +1,4 @@
-package RegisterNewUser;
+package UserManagement;
 
 import Pages_Automation_Excersize.Home_Page;
 import Pages_Automation_Excersize.Register_Page;
@@ -46,7 +46,7 @@ public class SuccessRegister {
         options.addArguments("--disable-popup-blocking");
 
         browser = new ChromeDriver();
-        homePage = new Home_Page(browser,baseURL);
+        homePage = new Home_Page(browser);
         registerPage = new Register_Page(browser);
 
     }
@@ -57,7 +57,7 @@ public class SuccessRegister {
 
         SoftAssert soft = new  SoftAssert();
         killAds();
-        homePage.navigateToHomePage(browser,baseURL);
+        homePage.navigateToHomePage();
 
         //Verify that home page is visible successfully
         String actual_URl = homePage.getURL();
