@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Full Flow Suite">
+    <test name="Registration and Login">
+        <classes>
+            <class name="RegisterNewUser.SuccessRegister" />
+            <class name="RegisterNewUser.SuccessLogin" />
+        </classes>
+    </test>
+</suite>
