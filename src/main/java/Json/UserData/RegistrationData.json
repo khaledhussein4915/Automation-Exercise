@@ -1,0 +1,16 @@
+
+{
+  "username": "ahmed",
+  "password": "123456",
+  "userEmail" : "useremail",
+  "day" : "5",
+  "month" : "5",
+  "year" :"2003",
+  "lastname" :"Fathy",
+  "companyName" : "GizaDevelopment",
+  "address12" : "in the sky",
+  "country" : 1 ,
+  "state": "Giza",
+  "zipcode" : "007",
+  "mobileNumber" :"01550000"
+}

@@ -19,7 +19,7 @@ import java.util.Date;
 public class Framework {
     WebDriver browser;
 
-
+    //-----------------------Constructors-------------------------------------//
     public Framework(WebDriver browser)
     {
         this.browser = browser;
@@ -31,7 +31,7 @@ public class Framework {
         this.browser = new ChromeDriver();
         browser.manage().window().maximize();
     }
-    //------------------------------------------------------------//
+    //--------------------------Functions----------------------------------//
     public void implicitlyWait(int second)
     {
         browser.manage().timeouts().implicitlyWait(Duration.ofSeconds(second));
@@ -56,6 +56,13 @@ public class Framework {
     {
         new WebDriverWait( browser,duration)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public void expllictlyWaitForURL(String URL , int second)
+    {
+        URL = browser.getCurrentUrl();
+        new WebDriverWait(browser,Duration.ofSeconds(second)).until(ExpectedConditions.urlToBe(URL));
+
     }
     public void fluentWait (By locator ,Duration duration1 , Duration duration2 )
     {
@@ -246,21 +253,7 @@ public class Framework {
         String randomEmail = faker.internet().emailAddress();
         return  randomEmail;
     }
-//    public void  killAds() {
-//        try {
-//            org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) browser;
-//            String script =" const elements = document.getElementsByClassName('adsbygoogle');"+
-//
-//                    "for (let el of elements) {"+
-//                    " el.style.display = '';"+
-//                    "await new Promise((resolve, reject)=>{ setTimeout(()=>resolve(),5000)}); console.log('ad removed')"+
-//                    "el.style.display = 'none';"+
-//                    "}";
-//
-//            js.executeScript(script);
-//        } catch (Exception e) {
-//            System.out.println("Could not remove ads: " + e.getMessage());
-//        }
+
 public void killAds() {
     try {
         org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) browser;
@@ -275,9 +268,18 @@ public void killAds() {
     } catch (Exception e) {
         System.out.println("Could not remove ads: " + e.getMessage());
     }
+}
+    public boolean textIsDisplayed (By locator)
+    {
+        return browser.findElement(locator).isDisplayed();
+    }
+
+    public void uploadFile( By locator ,String filePath)
+    {
+        browser.findElement(locator).sendKeys(filePath);
+    }
 
 
 
 
-
-}}
+}

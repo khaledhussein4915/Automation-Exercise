@@ -52,8 +52,8 @@ public Register_Page (WebDriver browser ) {
 
  private final By getSuccessMessage_locator = By.cssSelector("h2.title >b");
 
- private final By clickContinueButton_Locator = By.cssSelector("[data-qa=\"continue-button\"]");
- private final By deleteAccountButton_Locator = By.linkText("Delete Account");
+ private final By clickContinueButton_Locator = By.cssSelector("div [class=\"pull-right\"]>[data-qa=\"continue-button\"]");
+ private final By deleteAccountButton_Locator = By.cssSelector("[class=\"nav navbar-nav\"]>li [href=\"/delete_account\"]");
  private final By deletedAccountSuccessMessage_Locator = By.cssSelector("[data-qa=\"account-deleted\"] > b");
  private final By existingEmailRegister_Locator = By.cssSelector("p[style=\"color: red;\"]");
 
@@ -81,6 +81,7 @@ public Register_Page (WebDriver browser ) {
  public void enterUserEmailNormal(String email ) {
   fr.sendKeys(NewUserEmailLocator, email);
  }
+
  public String getEmailUsed() {
   return browser.findElement(NewUserEmailLocator).getAttribute("value");
  }
@@ -105,7 +106,7 @@ public Register_Page (WebDriver browser ) {
  {
   fr.sendKeys(addemail_locator , email);
  }
-public  void add_password (String password) {
+ public  void add_password (String password) {
  fr.sendKeys(addpassword_locator, password);
  String GeneratedPassword = password;
  System.out.println("Generated Password: " + GeneratedPassword);
@@ -217,34 +218,28 @@ public  void add_password (String password) {
    addZipcode(Integer.parseInt(zipcode));
    addMobileNumber(Integer.parseInt(mobileNumber));
    clickCreateaccountButton();
-   getsuccessRegister();
+
   }
 
-  public void deleteAccount()
+  public String deleteAccount()
   {
     fr.clickonElement(clickContinueButton_Locator);
     fr.clickonElement(deleteAccountButton_Locator);
-    fr.getText(deletedAccountSuccessMessage_Locator);
+    String deletedMsg = fr.getText(deletedAccountSuccessMessage_Locator);
     System.out.println(fr.getText(deletedAccountSuccessMessage_Locator));
+    return deletedMsg ;
 
   }
-/*
-Test Case 5: Register User with existing email
-1. Launch browser
-2. Navigate to url 'http://automationexercise.com'
-3. Verify that home page is visible successfully
-4. Click on 'Signup / Login' button
-5. Verify 'New User Signup!' is visible
-6. Enter name and already registered email address
-7. Click 'Signup' button
-8. Verify error 'Email Address already exist!' is visible
- */
+  public Home_Page getHomePage()
+  {
+   return new Home_Page(browser);
+  }
+
 
  public void registerExistingEmail(String userName , String userEmail){
   enterDesiredUserName(userName);
   enterUserEmailNormal(userEmail);
   clickSignupButton ();
-
 
  }
  public String getExistingEmailMessage (){

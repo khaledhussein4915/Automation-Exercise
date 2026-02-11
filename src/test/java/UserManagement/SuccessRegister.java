@@ -1,12 +1,10 @@
 package UserManagement;
 
-import Pages_Automation_Excersize.Home_Page;
-import Pages_Automation_Excersize.Register_Page;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+
+
+import PojoClass.RegisterNewUserData;
+import Utils.HelperClass;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -14,14 +12,12 @@ import org.testng.asserts.SoftAssert;
 
 public class SuccessRegister extends BaseClass{
 
-
 @Ignore
     @Test
 
-    public void setSuccessRegisterRequest() {
+    public void SuccessRegisterTest()  {
 
         SoftAssert soft = new  SoftAssert();
-        homePage.killads();
         homePage.navigateToHomePage();
 
         //Verify that home page is visible successfully
@@ -30,27 +26,31 @@ public class SuccessRegister extends BaseClass{
 
         //Verify 'New User Signup!' is visible
         homePage.killads();
-        homePage.clickSignUpLink();
+        homePage.navigateToRegistrationPage();
         String SignupActual_URl = homePage.getURL();
         soft.assertEquals(SignupActual_URl,"https://automationexercise.com/login");
 
 
         homePage.killads();
-        registerPage.performCreateAccount("ahmed", "123456","useremail","5", "5", "2003", "Fathy", "GizaDevelopment", "in the sky",  1 , "Giza", "007", "01550000");
+        String jsonfilepath = "src/main/java/Json/UserData/RegistrationData.json";
+
+        RegisterNewUserData registerData = HelperClass.getData(jsonfilepath,RegisterNewUserData.class);
+        registerPage.performCreateAccount
+                (registerData.username, registerData.password, registerData.userEmail, registerData.day, registerData.month, registerData.year, registerData.lastname, registerData.companyName, registerData.address12, registerData.country, registerData.state, registerData.zipcode, registerData.mobileNumber);
+
         String actualValue = registerPage.getsuccessRegister();
         homePage.killads();
         System.out.println(actualValue);
         String expected_Message = "ACCOUNT CREATED!";
-
-
         // Verify that 'ACCOUNT CREATED!' is visible
         Assert.assertEquals(actualValue,expected_Message);
         soft.assertAll();
 
+
         homePage.killads();
-        registerPage.deleteAccount();
+
+        String actualdeletedmessage = registerPage.deleteAccount();
         String expectedDeletedMessage =  "ACCOUNT DELETED!";
-        String actualdeletedmessage = registerPage.getDeletedMsgRegisterAccount();
         //Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
         Assert.assertEquals(actualdeletedmessage,expectedDeletedMessage);
         soft.assertAll();
@@ -58,7 +58,8 @@ public class SuccessRegister extends BaseClass{
 
     @Test // Test Case 5: Register User with existing email
     public void performExistingRegisterRequest() {
-        homePage.navigateToLoginPage();
+        homePage.navigateToHomePage();
+        homePage.navigateToRegistrationPage();
         registerPage.registerExistingEmail("Ahmed", "ahmed.khamis@gmail.com");
         String actualValue = registerPage.getExistingEmailMessage();
         String expectedValue = "Email Address already exist!";

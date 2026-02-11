@@ -11,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class Main {
     static void main() {
 
-        //Login_Page loginPage = new Login_Page(new ChromeDriver(), "https://www.google.com");
+
 
     }
 }

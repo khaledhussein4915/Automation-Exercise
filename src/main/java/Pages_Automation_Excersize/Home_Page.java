@@ -8,11 +8,14 @@ import org.openqa.selenium.WebDriver;
 
 public class Home_Page {
 Framework fr ;
-String URL;
 WebDriver browser;
 
 //Locator
-    private final By signUpLink_Locator = By.linkText("Signup / Login");
+    private final By signUp_loginLink_Locator = By.linkText("Signup / Login");
+    private final By contactUs_Locator = By.linkText("Contact us");
+    private final By testCase_locator = By.linkText("Test Cases");
+
+
 
 //Constructor
 public Home_Page (WebDriver browser)
@@ -22,29 +25,49 @@ public Home_Page (WebDriver browser)
 
 }
 //Functional
-public void navigateToHomePage ( ){
+    public Home_Page navigateToHomePage ( ){
 
     fr.navigatesToURL(Constants.APP_URL);
+    return this;
 
-}
+    }
 
-public void  clickSignUpLink()
-{
-        fr.clickonElement(signUpLink_Locator);
-}
+    public Login_Page navigateToLoginPage()
+    {
+     fr.clickonElement(signUp_loginLink_Locator);
+    return new Login_Page(browser) ;
+    }
 
-public  void navigateToLoginPage()
-{
-    navigateToHomePage();
-    clickSignUpLink();
-}
+    public Register_Page navigateToRegistrationPage()
+    {
+         fr.clickonElement(signUp_loginLink_Locator);
+         return new Register_Page(browser) ;
 
-public String getURL() {
+    }
+
+
+
+    public ContactUs_Page navigateToContactUs() {
+        fr.clickonElement(contactUs_Locator);
+
+        return new ContactUs_Page(browser);
+    }
+
+    public void navigateToTestCasesPage()
+    {
+        fr.clickonElement(testCase_locator);
+    }
+
+    public String getURL() {
         return fr.getpageURL();
     }
 
-public void killads()
+    public void killads()
     {
         fr.killAds();
     }
+
+
+
+
 }
