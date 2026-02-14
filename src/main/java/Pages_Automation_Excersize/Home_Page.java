@@ -14,6 +14,7 @@ WebDriver browser;
     private final By signUp_loginLink_Locator = By.linkText("Signup / Login");
     private final By contactUs_Locator = By.linkText("Contact us");
     private final By testCase_locator = By.linkText("Test Cases");
+    private final By product_Locator = By.partialLinkText("Products");
 
 
 
@@ -45,7 +46,11 @@ public Home_Page (WebDriver browser)
 
     }
 
-
+    public Product_Page navigateToProductPage ()
+    {
+        fr.clickonElement(product_Locator);
+        return new Product_Page(browser);
+    }
 
     public ContactUs_Page navigateToContactUs() {
         fr.clickonElement(contactUs_Locator);

@@ -19,7 +19,7 @@ public class BaseClass {
     protected Home_Page homePage;
     protected Login_Page loginPage;
     protected ContactUs_Page contactUsPage;
-    SoftAssert softTest;
+    protected SoftAssert softTest;
     Register_Page registerPage ;
 
     @BeforeMethod
