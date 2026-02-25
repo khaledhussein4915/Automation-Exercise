@@ -46,7 +46,7 @@ public class SuccessRegister extends BaseClass{
         Assert.assertEquals(actualValue,expected_Message);
         soft.assertAll();
 
-
+        registerPage.clickContinueAfterRegister();
         homePage.killads();
 
         String actualdeletedmessage = registerPage.deleteAccount();

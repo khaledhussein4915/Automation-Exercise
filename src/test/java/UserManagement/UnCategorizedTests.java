@@ -25,7 +25,7 @@ public class UnCategorizedTests extends BaseClass
     }
 
     @Test //Test Case 7: Verify Test Cases Page
-    public void avilabilityTestCasesPage()
+    public void availabilityTestCasesPage()
     {
         homePage.navigateToHomePage();
         homePage.navigateToTestCasesPage();
@@ -33,5 +33,19 @@ public class UnCategorizedTests extends BaseClass
         String ExpectedURL = "https://automationexercise.com/test_cases";
         Assert.assertEquals(ActualUrl,ExpectedURL);
 
+    }
+
+    @Test //Test Case 10: Verify Subscription in home page
+    public void testSuperscribeByEmail()
+    {
+        homePage.navigateToHomePage();
+        homePage.killads();
+        homePage.subscribe("email@gmail.com");
+
+        String expectedSubscriptionMSG = "You have been successfully subscribed!";
+        String actualSubscriptionMSG = homePage.getsubscriptionSuccessMessage();
+        homePage.isSuccessSubscriptionMessage();
+
+        Assert.assertTrue(expectedSubscriptionMSG.contains(actualSubscriptionMSG));
     }
 }

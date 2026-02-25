@@ -219,11 +219,18 @@ public Register_Page (WebDriver browser ) {
    addMobileNumber(Integer.parseInt(mobileNumber));
    clickCreateaccountButton();
 
+
+  }
+
+  public void clickContinueAfterRegister()
+  {
+   fr.clickonElement(clickContinueButton_Locator);
+   fr.removeAds();
   }
 
   public String deleteAccount()
   {
-    fr.clickonElement(clickContinueButton_Locator);
+
     fr.clickonElement(deleteAccountButton_Locator);
     String deletedMsg = fr.getText(deletedAccountSuccessMessage_Locator);
     System.out.println(fr.getText(deletedAccountSuccessMessage_Locator));

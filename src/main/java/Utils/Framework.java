@@ -96,6 +96,19 @@ public class Framework {
         browser.findElement(locator).click();
 
     }
+private void handleGoogleVignette() {
+    String currentUrl = browser.getCurrentUrl();
+    if (currentUrl.contains("#google_vignette")) {
+        // قص الجزء الخاص بالإعلان وارجع للينك الأصلي
+        String cleanUrl = currentUrl.split("#")[0];
+        browser.get(cleanUrl);
+        }}
+
+
+
+
+
+
 
     public void righclick (By locator)
     {
@@ -279,6 +292,22 @@ public void killAds() {
         browser.findElement(locator).sendKeys(filePath);
     }
 
+    public void removeAds() {
+        JavascriptExecutor js = (JavascriptExecutor) browser;
+        // 1. مسح كل عناصر الـ Iframe (الإعلانات غالباً بتكون جواها)
+        js.executeScript("var iframes = document.querySelectorAll('iframe'); for (var i = 0; i < iframes.length; i++) { iframes[i].remove(); }");
+
+        // 2. مسح إعلان الـ Google Vignette لو ظهرت الـ Overlay بتاعته
+        js.executeScript("var ads = document.querySelectorAll('.adsbygoogle, #google_vignette, .google-vignette-test'); for (var i = 0; i < ads.length; i++) { ads[i].remove(); }");
+
+        // 3. إعادة خاصية الـ Scroll للصفحة (أحياناً الإعلان بيقفل الـ scroll)
+        js.executeScript("document.body.style.overflow = 'auto';");
+    }
+
+    public void clearTextArea (By locator)
+    {
+        browser.findElement(locator).clear();
+    }
 
 
 

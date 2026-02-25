@@ -27,6 +27,13 @@ public class Product_Page {
     private final By productAvailability_Locator = By.cssSelector("div.product-information > p:nth-of-type(2)");
     private final By productCondition_Locator = By.cssSelector("div.product-information > p:nth-of-type(3)");
     private final By productBrand_Locator =By.cssSelector("div.product-information > p:nth-of-type(4)");
+    private final By searchedProduct = By.cssSelector("h2[class=\"title text-center\"]");
+    private final By firstProductCart_Locator = By.cssSelector("div[class=\"productinfo text-center\"] > [data-product-id=\"1\"]");
+    private final By secondProductCart_Locator = By.cssSelector("div[class=\"productinfo text-center\"] > [data-product-id=\"2\"]");
+    private final By continueButtonAfterAdd_Locator = By.cssSelector("[class=\"btn btn-success close-modal btn-block\"]");
+    private final By viewProduct_Locator =By.cssSelector(" [href=\"/product_details/1\"] > [class=\"fa fa-plus-square\"]");
+    private final By increaseQuantity_Locator = By.id("quantity");
+    private final By addQuantityToCart_Locator = By.cssSelector("[class=\"btn btn-default cart\"]");
     //------------------------------------------------------------------//
     // Constructors
     public Product_Page(WebDriver browser) {
@@ -44,6 +51,11 @@ public class Product_Page {
         fr.clickonElement(confirmSearchButton_locator);
     }
 
+    public void searchForProduct(String productName) {
+        clickOnSearchBar(productName);
+        confirmSearchButton();
+    }
+
     public boolean isAllProductsAvailable() {
         fr.textIsDisplayed(imageForProduct);
         return true;
@@ -53,6 +65,10 @@ public class Product_Page {
         return true;
     }
 
+    public boolean isSearchedProductAvailable() {
+        fr.textIsDisplayed(searchProduct_Locator);
+        return true;
+    }
 
     public String getPageURL() {
         return fr.getpageURL();
@@ -120,6 +136,45 @@ public class Product_Page {
         );
 
     }
+
+    public void hoverOnFirstProductDetails() {
+        fr.hoverelement(viewFirstProductDetails_Locator);
+    }
+    public void clickAddToCartOnFirstProduct() {
+        fr.scrollToElement(firstProductCart_Locator);
+        fr.removeAds();
+        fr.clickonElement(firstProductCart_Locator);
+
+    }
+
+    public void clickOnContinueButton() {
+        fr.clickonElement(continueButtonAfterAdd_Locator);
+    }
+    public void addFirstProductToCart() {
+        hoverOnFirstProductDetails();
+        clickAddToCartOnFirstProduct();
+        clickOnContinueButton();
+    }
+    public void addSecondProductToCart() {
+        fr.scrollToElement(secondProductCart_Locator);
+        fr.removeAds();
+        fr.clickonElement(secondProductCart_Locator);
+
+        clickOnContinueButton();
+    }
+    public void clickViewProductButton() {
+        fr.removeAds();
+        fr.clickonElement(viewProduct_Locator);
+    }
+
+    public void increaseProductQuantity(int quantity) {
+        fr.clearTextArea(increaseQuantity_Locator);
+        fr.sendKeys(increaseQuantity_Locator, String.valueOf(quantity));
+    }
+    public void clickAddQuantityCart ()
+        {
+        fr.clickonElement(addQuantityToCart_Locator);
+        }
 
 
 

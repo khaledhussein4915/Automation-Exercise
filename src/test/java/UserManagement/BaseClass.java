@@ -25,7 +25,7 @@ public class BaseClass {
     @BeforeMethod
     public void setupBeforeMethods()
     {
-        browser = new EdgeDriver();
+        browser = new ChromeDriver();
         browser.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         ChromeOptions options = new ChromeOptions();
         // السطر ده بيقفل الـ popups والـ Ads بشكل أقوى
